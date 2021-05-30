@@ -1,0 +1,18 @@
+---
+application:
+  name: "webscrape-website"
+  project: "node-websrape"
+  organization: "QoveryCommunity"
+databases:
+- type: "MONGODB"
+  name: "webscrape-websiteDB"
+  version: "4.4"
+- type: "MONGODB"
+  name: "mangaDB"
+  version: "4.4"
+routers:
+- name: "main-webscrape-website"
+  routes:
+  - application_name: "webscrape-website"
+    paths:
+    - "/*"
