@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
-const port = 3001;
+// const port = 3001;
 // const functions = require('firebase-functions')
 const cors = require('cors')
 const mongoose = require("mongoose");
 // const mongodb = require("mongodb");
 const cheerio = require("cheerio");
 const fs = require("fs");
+
+app.listen(80)
 
 /* anime manga */
 const boku_no_hero_URL = 'https://w3.bokunoheromanga.com/'
@@ -96,9 +98,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
 
 
 
