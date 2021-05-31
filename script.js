@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const fs = require("fs");
 
-app.listen(80)
+app.listen(443)
 
 /* anime manga */
 const boku_no_hero_URL = 'https://w3.bokunoheromanga.com/'
