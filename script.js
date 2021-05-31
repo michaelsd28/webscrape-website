@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
-// const port = 3001;
-// const functions = require('firebase-functions')
+const port = 3001;
 const cors = require('cors')
 const mongoose = require("mongoose");
-// const mongodb = require("mongodb");
 const cheerio = require("cheerio");
 const fs = require("fs");
+const https = require('https');
+const path = require('path')
 
-app.listen(443)
 
 /* anime manga */
 const boku_no_hero_URL = 'https://w3.bokunoheromanga.com/'
@@ -30,6 +29,39 @@ const uri = "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/b
 
 app.use(cors())
 // exports.app =  functions.https.onRequest(app)
+
+
+app.use('/ssl',(req,res)=>{
+
+console.log('https is working')
+
+
+});
+
+const sslServer = https.createServer({
+
+key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
+
+},
+app
+
+)
+
+sslServer.listen(3443,()=>{
+
+
+
+  console.log('sslServer is running on 3443 ***https***')
+})
+
+
+
+
+
+
+
+
 
 
 mongoose.connect(uri, { useNewUrlParser: true });
