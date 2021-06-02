@@ -7,53 +7,59 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const https = require('https');
 const path = require('path')
+const router = express.Router();
+const request = require("request");
+
+const one_pieceRoute = require('./routes/one_piece') 
+const boku_no_heroRoute = require('./routes/boku_no_hero') 
 
 
 /* anime manga */
 const boku_no_hero_URL = 'https://w3.bokunoheromanga.com/'
 const boku_no_hero_Manga = 'https://w3.bokunoheromanga.com/manga/'
-const urlOnePiece = 'https://myonepiecemanga.com/'
-
+const urlOnePiece = 'https://onepiece-mangaonline.com/'
+const OnePiceManga = 'https://onepiece-mangaonline.com/manga/'
 const boruto_Manga = 'https://read-boruto.online/manga/'
-
 const boruto_URL = 'https://read-boruto.online/'
 
-
-
-const request = require("request");
-const OnePiceManga = "https://myonepiecemanga.com/manga/";
+;
 
 /* anime manga */
 
 const uri = "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+mongoose.connect(uri, { useNewUrlParser: true });
 
 app.use(cors())
+
+app.use('/one-piece', one_pieceRoute)
+app.use('/boku-no-hero-ch', boku_no_heroRoute)
+
+
+
 // exports.app =  functions.https.onRequest(app)
 
+// app.use('/ssl',(req,res)=>{
 
-app.use('/ssl',(req,res)=>{
+// console.log('https is working')
 
-console.log('https is working')
+// });
 
+// const sslServer = https.createServer({
 
-});
+// key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+// cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
 
-const sslServer = https.createServer({
+// },
+// app
 
-key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
+// )
 
-},
-app
-
-)
-
-sslServer.listen(443,()=>{
+// sslServer.listen(4433,()=>{
 
 
 
-  console.log('sslServer is running on 443 ***https***')
-})
+//   console.log('sslServer is running on 443 ***https***')
+// })
 
 
 
@@ -64,7 +70,7 @@ sslServer.listen(443,()=>{
 
 
 
-mongoose.connect(uri, { useNewUrlParser: true });
+
 let date = new Date();
 let dd = String(date.getDate());
 let mm = String(date.getMonth()+1);
@@ -130,9 +136,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
 
 
 
@@ -142,70 +150,11 @@ app.get("/", (req, res) => {
 
 
 app.get("/one-piece", (req, res) => {
-  Chapter.findOne()
-    .sort({ linkName: -1 })
-    .exec(function (err, post) {
-      if (err) {
-        console.log(err);
-      } else {
-        let chapterDate = post.chapterName.split("-");
-        let day = parseInt(chapterDate[1]);
-        let month = parseInt(chapterDate[0]);
-        var myAGE = getAge(month, day);
-
-        if (!myAGE) {
-          request(urlOnePiece, function (error, response, html) {
-            if (!error && response.statusCode == 200) {
-              const $ = cheerio.load(html);
-
-              let ul_elements = $(".ceo_latest_comics_widget");
-
-              let listOfChapters = ul_elements.text();
-
-              let listOfChaptersArray = listOfChapters.split("\n").slice(1, 51);
-
-              const listOfChaptersJson = [];
-              const listOfChaptersOrginal = [];
-              const noSpacesMap = listOfChaptersArray.map((item) => {
-                let newItem = item
-                  .trim()
-                  .replace(",", " ")
-                  .replace(/  /g, " ")
-                  .replace(/:/g, " -")
-                  .replace(/\t/g, "");
-
-                let newItemOrginal = item.replace(/\t/g, "");
-                listOfChaptersJson.push(newItem);
-                listOfChaptersOrginal.push(newItemOrginal);
-              });
 
 
-              const listOfJson = [
-                { episodes: listOfChaptersJson },
-                { Orginal_NameCH: listOfChaptersOrginal },
-              ];
-
-              res.json(listOfJson);
-
-              console.log("its old and had to update json one piece");
-
-              fs.writeFile(
-                "One Piece - chapters.json",
-                JSON.stringify(listOfJson),
-                function (err) {
-                  if (err) throw err;
-                  console.log("created file");
-                }
-              );
-            }
-          });
-        } else {
           res.sendFile(__dirname + "/One Piece - chapters.json");
           console.log("its new and send the json file one piece");
-        }
-      }
-    });
-
+  
   numbers = numbers + 1;
 
   console.log(numbers, "mmg");
@@ -213,71 +162,16 @@ app.get("/one-piece", (req, res) => {
 
 
 
+
+
+
 /* boku no hero json api */
 app.get("/boku-no-hero", (req, res) => {
-  Chapter.findOne()
-    .sort({ linkName: -1 })
-    .exec(function (err, post) {
-      if (err) {
-        console.log(err);
-      } else {
-        let chapterDate = post.chapterName.split("-");
-        let day = parseInt(chapterDate[1]);
-        let month = parseInt(chapterDate[0]);
-        var myAGE = getAge(month, day);
 
-        if (!myAGE > 6) {
-          request(boku_no_hero_URL, function (error, response, html) {
-            if (!error && response.statusCode == 200) {
-              const $ = cheerio.load(html);
-
-              let ul_elements = $(".ceo_latest_comics_widget");
-
-              let listOfChapters = ul_elements.text();
-
-              let listOfChaptersArray = listOfChapters.split("\n").slice(1, 51);
-
-              const listOfChaptersJson = [];
-              const listOfChaptersOrginal = [];
-              const noSpacesMap = listOfChaptersArray.map((item) => {
-                let newItem = item
-                  .trim()
-                  .replace(",", " ")
-                  .replace(/  /g, " ")
-                  .replace(/:/g, " -")
-                  .replace(/\t/g, "");
-
-                let newItemOrginal = item.replace(/\t/g, "");
-                listOfChaptersJson.push(newItem);
-                listOfChaptersOrginal.push(newItemOrginal);
-              });
-
-
-              const listOfJson = [
-                { episodes: listOfChaptersJson },
-                { Orginal_NameCH: listOfChaptersOrginal },
-              ];
-
-              res.json(listOfJson);
-
-              console.log("its old and had to update json boku no hero ");
-
-              fs.writeFile(
-                "Boku no Hero chapters.json",
-                JSON.stringify(listOfJson),
-                function (err) {
-                  if (err) throw err;
-                  console.log("created file");
-                }
-              );
-            }
-          });
-        } else {
+  
           res.sendFile(__dirname + "/Boku no Hero chapters.json");
           console.log("its new and send the json file boku no hero");
-        }
-      }
-    });
+
 
   numbers = numbers + 1;
 
@@ -330,14 +224,14 @@ app.get("/boruto", (req, res) => {
           //       { Orginal_NameCH: newLinks },
           //     ];
 
-          //     fs.writeFile(
-          //       "Boruto chapters.json",
-          //       JSON.stringify(jsonOBJ),
-          //       function (err) {
-          //         if (err) throw err;
-          //         console.log("created file");
-          //       }
-          //     );
+              // fs.writeFile(
+              //   "Boruto chapters.json",
+              //   JSON.stringify(jsonOBJ),
+              //   function (err) {
+              //     if (err) throw err;
+              //     console.log("created file");
+              //   }
+              // );
           //   }
           // });
 
@@ -348,16 +242,6 @@ app.get("/boruto", (req, res) => {
 
   console.log(numbers, "mmg");
 });
-
-
-
-
-
-////websrape images
-
-///fetch data for images
-
-
 
 
 
@@ -388,52 +272,45 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
     } else {
       if (Chapterr.length == 0) {
         request(imgWebscrape, function (error, response, html) {
-          let myLinks = { links: [] };
+          const $ = cheerio.load(html);
           if (!error && response.statusCode == 200) {
-            const $ = cheerio.load(html);
+           
+                /* get href */
+      let myLinks = [];
 
-            const img_elements = $("img").each((index, value) => {
-              let link = $(value).attr("src");
+      $(".entry-content a").each((index, value) => {
+        var link = $(value).attr("href");
+        myLinks.push(link);
+      });
 
-              myLinks.links.push(link);
-            });
 
-            const myLinks_newLinks = myLinks.links.splice(
-              0,
-              myLinks.links.length
-            );
+            console.log(myLinks,'2:14 AM')
 
-            const OnePieceNoEmptyLinks = myLinks_newLinks.filter(function (e) {
-              return (
-                e !== "" &&
-                e !==
-                  "https://myonepiecemanga.com/wp-content/plugins/ad-inserter/images/ads.png"
-              );
-            });
+         
 
-            myLinks = { links: OnePieceNoEmptyLinks };
+           let links_JSON = { links: myLinks };
 
-            console.log("myLinks", "console was excecuted");
+            console.log("myLinks", "console was excecuted one piece");
 
             let { links } = myLinks;
 
             const chapter = new Chapter({
-              chapterName: `${mm}-${dd}`,
-              imgSRC: links,
+              chapterName: 'one-piece',
+              imgSRC: myLinks,
               dateAdded: `${mm}-${dd}`,
               linkName: chapterName_1,
             });
 
-            console.log(links.length, "links.length  *4:00AM*");
+            console.log(myLinks.length, "links.length  *4:00AM* one piece");
 
-            if(links.length>6){
+            if(myLinks.length>6){
               chapter.save();
 
             }
 
-            console.log("chapter was not found and created a new one ");
+            console.log("chapter was not found and created a new one one piece ");
 
-            res.json(myLinks);
+            res.json(links_JSON);
           }
         });
       } else {
@@ -634,3 +511,11 @@ app.get("/boruto-ch/:chapterName", (req, res) => {
     }
   });
 });
+
+
+
+
+
+
+module.exports = mongoose.model("Chapter", chapterSchema);    
+  
