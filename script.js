@@ -104,58 +104,9 @@ app.get("/", (req, res) => {
 
 /*return list of chapters json */
 app.get("/one-ch", (req, res) => {
-  request(urlOnePiece, function (error, response, html) {
-    if (!error && response.statusCode == 200) {
-      const $ = cheerio.load(html);
+  
 
-      let ul_elements = $(".ceo_latest_comics_widget");
-
-      let listOfChapters = ul_elements.text();
-
-      let listOfChaptersArray = listOfChapters.split("\n").slice(1, 51);
-
-      const listOfChaptersJson = [];
-      const listOfChaptersOrginal = [];
-      const noSpacesMap = listOfChaptersArray.map((item) => {
-        let newItem = item
-          .trim()
-          .replace(",", " ")
-          .replace(/  /g, " ")
-          .replace(/:/g, " -")
-          .replace(/\t/g, "");
-
-        let newItemOrginal = item.replace(/\t/g, "");
-        listOfChaptersJson.push(newItem);
-        listOfChaptersOrginal.push(newItemOrginal);
-      });
-
-      /* get href */
-      let links = [];
-
-      $(".ceo_latest_comics_widget a").each((index, value) => {
-        let link = $(value).attr("href");
-        links.push(link);
-      });
-
-      // console.log(links,'href')
-
-      let reqLinks = [];
-      const strREQ = links.map((item) => {
-        let newItem = item.substring(39);
-        reqLinks.push(newItem);
-      });
-
-      reqLinks = reqLinks.splice(0, 50);
-
-      const listOfJson = [
-        { episodes: listOfChaptersJson },
-        { Orginal_NameCH: reqLinks },
-      ];
-
-      res.json(listOfJson);
-    }
-  });
-
+  res.sendFile(__dirname+'/One Piece - chapters.json')
   numbers = numbers + 1;
 
   console.log(numbers, "mmg");
