@@ -103,33 +103,63 @@ app.get("/", (req, res) => {
 // });
 
 /*return list of chapters json */
+app.get("/one-ch", (req, res) => {
+  request(urlOnePiece, function (error, response, html) {
+    if (!error && response.statusCode == 200) {
+      const $ = cheerio.load(html);
 
-// app.get("/one-piece", (req, res) => {
-//   res.sendFile(__dirname + "/One Piece - chapters.json");
-//   console.log("its new and send the json file one piece");
+      let ul_elements = $(".ceo_latest_comics_widget");
 
-//   numbers = numbers + 1;
+      let listOfChapters = ul_elements.text();
 
-//   console.log(numbers, "mmg");
-// });
+      let listOfChaptersArray = listOfChapters.split("\n").slice(1, 51);
 
-/* boku no hero json api */
-// app.get("/boku-no-hero", (req, res) => {
-//   res.sendFile(__dirname + "/Boku no Hero chapters.json");
-//   console.log("its new and send the json file boku no hero");
+      const listOfChaptersJson = [];
+      const listOfChaptersOrginal = [];
+      const noSpacesMap = listOfChaptersArray.map((item) => {
+        let newItem = item
+          .trim()
+          .replace(",", " ")
+          .replace(/  /g, " ")
+          .replace(/:/g, " -")
+          .replace(/\t/g, "");
 
-//   numbers = numbers + 1;
+        let newItemOrginal = item.replace(/\t/g, "");
+        listOfChaptersJson.push(newItem);
+        listOfChaptersOrginal.push(newItemOrginal);
+      });
 
-//   console.log(numbers, "mmg");
-// });
+      /* get href */
+      let links = [];
 
-// app.get("/boruto", (req, res) => {
-//   res.sendFile(__dirname + "/Boruto chapters.json");
+      $(".ceo_latest_comics_widget a").each((index, value) => {
+        let link = $(value).attr("href");
+        links.push(link);
+      });
 
-//   numbers = numbers + 1;
+      // console.log(links,'href')
 
-//   console.log(numbers, "mmg");
-// });
+      let reqLinks = [];
+      const strREQ = links.map((item) => {
+        let newItem = item.substring(39);
+        reqLinks.push(newItem);
+      });
+
+      reqLinks = reqLinks.splice(0, 50);
+
+      const listOfJson = [
+        { episodes: listOfChaptersJson },
+        { Orginal_NameCH: reqLinks },
+      ];
+
+      res.json(listOfJson);
+    }
+  });
+
+  numbers = numbers + 1;
+
+  console.log(numbers, "mmg");
+});
 
 /* webscrape images one piece  */
 
