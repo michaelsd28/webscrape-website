@@ -1,6 +1,6 @@
 const express = require("express");
 
-const mongoose = require("mongoose");
+
 const cheerio = require("cheerio");
 
 
@@ -70,7 +70,7 @@ router.get("/ch", (req, res) => {
       let links = [];
 
       $(".ceo_latest_comics_widget a").each((index, value) => {
-        var link = $(value).attr("href");
+        let link = $(value).attr("href");
         links.push(link);
       });
 
@@ -92,7 +92,7 @@ router.get("/ch", (req, res) => {
 
       res.json(listOfJson);
 
-      console.log(listOfJson)
+
     }
   });
    
