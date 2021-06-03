@@ -33,7 +33,7 @@ var numbers = 0;
 
 /*return list of chapters json */
 
-router.get("/ch", (req, res) => {
+app.get("/one-ch", (req, res) => {
   request(urlOnePiece, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
