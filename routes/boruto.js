@@ -50,7 +50,7 @@ router.get("/ch", (req, res) => {
 
       newLinks = newLinks.splice(0, 51);
 
-      console.log(newLinks);
+  
 
       let jsonOBJ = [{ episodes: newArray }, { Orginal_NameCH: newLinks }];
 

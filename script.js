@@ -10,7 +10,7 @@ const path = require("path");
 const router = express.Router();
 const request = require("request");
 
-const one_pieceRoute = require("./routes/one_piece");
+const one_pieceRoute = require("./routes/one_piece.js");
 const boku_no_heroRoute = require("./routes/boku_no_hero");
 const borutoRoute = require("./routes/boruto");
 

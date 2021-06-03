@@ -9,10 +9,7 @@ const router = express.Router();
 const request = require("request");
 const urlOnePiece = "https://onepiece-mangaonline.com/";
 
-const uri =
-  "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
-mongoose.connect(uri, { useNewUrlParser: true });
-const connection = mongoose.connection;
+
 
 var numbers = 0;
 
@@ -43,6 +40,7 @@ var numbers = 0;
 /*return list of chapters json */
 
 router.get("/ch", (req, res) => {
+
   request(urlOnePiece, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -89,12 +87,15 @@ router.get("/ch", (req, res) => {
       const listOfJson = [
         { episodes: listOfChaptersJson },
         { Orginal_NameCH: reqLinks },
+
       ];
 
       res.json(listOfJson);
+
+      console.log(listOfJson)
     }
   });
-
+   
   numbers = numbers + 1;
 
   console.log(numbers, "mmg");
