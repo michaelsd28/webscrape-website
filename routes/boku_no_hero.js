@@ -34,7 +34,7 @@ var numbers = 0;
 
 /*return list of chapters json */
 
-router.get("/boku", (req, res) => {
+router.get("/ch", (req, res) => {
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -93,3 +93,4 @@ router.get("/boku", (req, res) => {
 });
 
 /* webscrape images one piece  */
+module.exports = router;

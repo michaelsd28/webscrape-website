@@ -31,7 +31,7 @@ mongoose.connect(uri, { useNewUrlParser: true });
 app.use(cors());
 
 app.use("/one-piece", one_pieceRoute);
-app.use("/boku-no-hero-ch", boku_no_heroRoute);
+app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
 // exports.app =  functions.https.onRequest(app)
@@ -99,38 +99,38 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
 
 /*return list of chapters json */
 
-app.get("/one-piece", (req, res) => {
-  res.sendFile(__dirname + "/One Piece - chapters.json");
-  console.log("its new and send the json file one piece");
+// app.get("/one-piece", (req, res) => {
+//   res.sendFile(__dirname + "/One Piece - chapters.json");
+//   console.log("its new and send the json file one piece");
 
-  numbers = numbers + 1;
+//   numbers = numbers + 1;
 
-  console.log(numbers, "mmg");
-});
+//   console.log(numbers, "mmg");
+// });
 
 /* boku no hero json api */
-app.get("/boku-no-hero", (req, res) => {
-  res.sendFile(__dirname + "/Boku no Hero chapters.json");
-  console.log("its new and send the json file boku no hero");
+// app.get("/boku-no-hero", (req, res) => {
+//   res.sendFile(__dirname + "/Boku no Hero chapters.json");
+//   console.log("its new and send the json file boku no hero");
 
-  numbers = numbers + 1;
+//   numbers = numbers + 1;
 
-  console.log(numbers, "mmg");
-});
+//   console.log(numbers, "mmg");
+// });
 
-app.get("/boruto", (req, res) => {
-  res.sendFile(__dirname + "/Boruto chapters.json");
+// app.get("/boruto", (req, res) => {
+//   res.sendFile(__dirname + "/Boruto chapters.json");
 
-  numbers = numbers + 1;
+//   numbers = numbers + 1;
 
-  console.log(numbers, "mmg");
-});
+//   console.log(numbers, "mmg");
+// });
 
 /* webscrape images one piece  */
 
@@ -307,7 +307,7 @@ app.get("/boruto-ch/:chapterName", (req, res) => {
   let chapterName_new = chapterName_1 + "/";
   let imgWebscrape = boruto_Manga + chapterName_new;
 
-  console.log(imgWebscrape, "imgWebscrape");
+
 
   //fetchImages(imgWebscrape);
 

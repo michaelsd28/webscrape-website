@@ -23,7 +23,7 @@ var numbers = 0;
 
 module.exports = router;
 
-router.get("/bo", (req, res) => {
+router.get("/ch", (req, res) => {
   request(boruto_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -62,3 +62,5 @@ router.get("/bo", (req, res) => {
 
   console.log(numbers, "mmg boruto");
 });
+
+module.exports = router;

@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 
+
 const router = express.Router();
 
 const request = require("request");
@@ -13,10 +14,14 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
+
+
 /*connect to database  */
 // connection.once("open", function () {
 //   connection.db.collection("chapters", function (err, collection) {
 //     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
+
+
 
 //         let [alldata] = data;
 //         let { imgSRC } = alldata;
@@ -27,9 +32,17 @@ const connection = mongoose.connection;
 //   });
 // });
 
+
+
+
+
+
+
+
+
 /*return list of chapters json */
 
-router.get("/test", (req, res) => {
+router.get("/ch", (req, res) => {
   request(urlOnePiece, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -87,6 +100,10 @@ router.get("/test", (req, res) => {
   console.log(numbers, "mmg");
 });
 
+
+
+
 /* webscrape images one piece  */
+
 
 module.exports = router;
