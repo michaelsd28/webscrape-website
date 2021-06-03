@@ -15,12 +15,12 @@ const boku_no_heroRoute = require("./routes/boku_no_hero");
 const borutoRoute = require("./routes/boruto");
 
 /* anime manga */
-const boku_no_hero_URL = "https://w3.bokunoheromanga.com/";
+
 const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
-const urlOnePiece = "https://onepiece-mangaonline.com/";
+
 const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
 const boruto_Manga = "https://read-boruto.online/manga/";
-const boruto_URL = "https://read-boruto.online/";
+
 
 /* anime manga */
 
