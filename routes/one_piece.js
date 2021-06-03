@@ -14,7 +14,7 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
-
+var numbers = 0;
 
 /*connect to database  */
 // connection.once("open", function () {
