@@ -2,10 +2,9 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
-const fs = require("fs");
-const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
+
 const router = express.Router();
-const Chapter = require("../script");
+
 const request = require("request");
 const urlOnePiece = "https://onepiece-mangaonline.com/";
 
@@ -14,14 +13,10 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
-
-
-
+/*connect to database  */
 // connection.once("open", function () {
 //   connection.db.collection("chapters", function (err, collection) {
 //     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
-
-
 
 //         let [alldata] = data;
 //         let { imgSRC } = alldata;
@@ -31,14 +26,6 @@ const connection = mongoose.connection;
 //       });
 //   });
 // });
-
-// var numbers = 0;
-
-
-
-
-
-
 
 /*return list of chapters json */
 
@@ -100,10 +87,6 @@ router.get("/test", (req, res) => {
   console.log(numbers, "mmg");
 });
 
-
-
-
 /* webscrape images one piece  */
-
 
 module.exports = router;

@@ -1,56 +1,64 @@
+const express = require("express");
 
-app.get("/boruto", (req, res) => {
-  
-    // request(boruto_URL, function (error, response, html) {
-    //   if (!error && response.statusCode == 200) {
-    //     const $ = cheerio.load(html);
-    //     /* get text name */
-    //     let ul_elements = $(".version-chap");
-    //     let listOfChapters = ul_elements.text();
-    //     let newString = listOfChapters
-    //       .replace(/\t/g, "")
-    //       .replace(/\s\s+/g, " ");
-    //     let newArray = newString.split(" Read ").slice(0, 51);
+const mongoose = require("mongoose");
+const cheerio = require("cheerio");
+const router = express.Router();
+const request = require("request");
+const boruto_URL = "https://read-boruto.online/";
 
-    //     /* get href*/
+var numbers = 0;
 
-    //     let links = [];
+// connection.once("open", function () {
+//   connection.db.collection("chapters", function (err, collection) {
+//     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
 
-    //     $(".version-chap a").each((index, value) => {
-    //       var link = $(value).attr("href");
-    //       links.push(link);
-    //     });
+//         let [alldata] = data;
+//         let { imgSRC } = alldata;
+//         let myLinksDB = { links: imgSRC };
 
-    //     let newLinks = [];
-    //     const strREQ = links.map((item) => {
-    //       let newItem = item.substring(33);
-    //       newLinks.push(newItem);
-    //     });
+//         console.log(myLinksDB); // it will print your collection data
+//       });
+//   });
+// });
 
-    //     newLinks = newLinks.splice(0, 51);
+module.exports = router;
 
-    //     console.log(newLinks);
+router.get("/bo", (req, res) => {
+  request(boruto_URL, function (error, response, html) {
+    if (!error && response.statusCode == 200) {
+      const $ = cheerio.load(html);
+      /* get text name */
+      let ul_elements = $(".version-chap");
+      let listOfChapters = ul_elements.text();
+      let newString = listOfChapters.replace(/\t/g, "").replace(/\s\s+/g, " ");
+      let newArray = newString.split(" Read ").slice(0, 51);
 
-    //     let jsonOBJ = [
-    //       { episodes: newArray },
-    //       { Orginal_NameCH: newLinks },
-    //     ];
+      /* get href*/
 
-        // fs.writeFile(
-        //   "Boruto chapters.json",
-        //   JSON.stringify(jsonOBJ),
-        //   function (err) {
-        //     if (err) throw err;
-        //     console.log("created file");
-        //   }
-        // );
-    //   }
-    // });
+      let links = [];
 
-    res.sendFile(__dirname+'/Boruto chapters.json')
+      $(".version-chap a").each((index, value) => {
+        var link = $(value).attr("href");
+        links.push(link);
+      });
 
+      let newLinks = [];
+      const strREQ = links.map((item) => {
+        let newItem = item.substring(33);
+        newLinks.push(newItem);
+      });
 
-numbers = numbers + 1;
+      newLinks = newLinks.splice(0, 51);
 
-console.log(numbers, "mmg");
+      console.log(newLinks);
+
+      let jsonOBJ = [{ episodes: newArray }, { Orginal_NameCH: newLinks }];
+
+      res.json(jsonOBJ);
+    }
+  });
+
+  numbers = numbers + 1;
+
+  console.log(numbers, "mmg boruto");
 });
