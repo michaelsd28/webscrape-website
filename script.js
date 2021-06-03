@@ -34,28 +34,27 @@ app.use("/one-piece", one_pieceRoute);
 app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
-// exports.app =  functions.https.onRequest(app)
 
-// app.use('/ssl',(req,res)=>{
+app.use('/ssl',(req,res)=>{
 
-// console.log('https is working')
+console.log('https is working')
 
-// });
+});
 
-// const sslServer = https.createServer({
+const sslServer = https.createServer({
 
-// key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-// cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
+key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
 
-// },
-// app
+},
+app
 
-// )
+)
 
-// sslServer.listen(4433,()=>{
+sslServer.listen(443,()=>{
 
-//   console.log('sslServer is running on 443 ***https***')
-// })
+  console.log('sslServer is running on 443 ***https***')
+})
 
 let date = new Date();
 let dd = String(date.getDate());
