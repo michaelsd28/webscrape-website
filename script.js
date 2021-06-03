@@ -102,15 +102,9 @@ app.get("/", (req, res) => {
 //   console.log(`Example app listening at http://localhost:${port}`);
 // });
 
-/*return list of chapters json */
-app.get("/one-ch", (req, res) => {
-  
 
-  res.sendFile(__dirname+'/One Piece - chapters.json')
-  numbers = numbers + 1;
 
-  console.log(numbers, "mmg");
-});
+
 
 /* webscrape images one piece  */
 
