@@ -10,7 +10,7 @@ const path = require("path");
 const router = express.Router();
 const request = require("request");
 
-const one_pieceRoute = require("./routes/one_piece.js");
+const oneRoute = require("./routes/one");
 const boku_no_heroRoute = require("./routes/boku_no_hero");
 const borutoRoute = require("./routes/boruto");
 
@@ -30,7 +30,7 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 app.use(cors());
 
-app.use("/one-piece", one_pieceRoute);
+app.use("/one", oneRoute);
 app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
@@ -51,7 +51,7 @@ app
 
 )
 
-sslServer.listen(4433,()=>{
+sslServer.listen(443,()=>{
 
   console.log('sslServer is running on 443 ***https***')
 })

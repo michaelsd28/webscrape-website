@@ -104,7 +104,7 @@ router.get("/ch", (req, res) => {
 
 
 
-/* webscrape images one piece  */
+
 
 
 module.exports = router;

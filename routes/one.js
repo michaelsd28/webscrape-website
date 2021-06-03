@@ -7,8 +7,7 @@ const fs = require("fs");
 const router = express.Router();
 const request = require("request");
 
-const boku_no_hero_URL = "https://w3.bokunoheromanga.com/";
-const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
+const urlOnePiece = "https://onepiece-mangaonline.com/";
 
 const uri =
   "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
@@ -35,7 +34,7 @@ var numbers = 0;
 /*return list of chapters json */
 
 router.get("/ch", (req, res) => {
-  request(boku_no_hero_URL, function (error, response, html) {
+  request(urlOnePiece, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
 
@@ -64,7 +63,7 @@ router.get("/ch", (req, res) => {
       let links = [];
 
       $(".ceo_latest_comics_widget a").each((index, value) => {
-        var link = $(value).attr("href");
+        let link = $(value).attr("href");
         links.push(link);
       });
 
@@ -72,7 +71,7 @@ router.get("/ch", (req, res) => {
 
       let reqLinks = [];
       const strREQ = links.map((item) => {
-        let newItem = item.substring(37);
+        let newItem = item.substring(39);
         reqLinks.push(newItem);
       });
 
@@ -91,15 +90,6 @@ router.get("/ch", (req, res) => {
 
   console.log(numbers, "mmg");
 });
-
-
-
-
-
-
-
-
-
 
 /* webscrape images one piece  */
 module.exports = router;
