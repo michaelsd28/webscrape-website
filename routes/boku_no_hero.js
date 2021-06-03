@@ -7,24 +7,19 @@ const fs = require("fs");
 const router = express.Router();
 const request = require("request");
 
-const boku_no_hero_URL = 'https://w3.bokunoheromanga.com/'
-const boku_no_hero_Manga = 'https://w3.bokunoheromanga.com/manga/'
-
+const boku_no_hero_URL = "https://w3.bokunoheromanga.com/";
+const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
 
 const uri =
   "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
-
 var numbers = 0;
-
 
 // connection.once("open", function () {
 //   connection.db.collection("chapters", function (err, collection) {
 //     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
-
-
 
 //         let [alldata] = data;
 //         let { imgSRC } = alldata;
@@ -37,16 +32,9 @@ var numbers = 0;
 
 // var numbers = 0;
 
-
-
-
-
-
-
 /*return list of chapters json */
 
 router.get("/boku", (req, res) => {
-    
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -104,10 +92,4 @@ router.get("/boku", (req, res) => {
   console.log(numbers, "mmg");
 });
 
-
-
-
 /* webscrape images one piece  */
-
-
-module.exports = router;
