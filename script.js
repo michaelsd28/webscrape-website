@@ -18,7 +18,7 @@ const borutoRoute = require("./routes/boruto");
 
 const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
 
-const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
+const OnePiceManga = "https://myonepiecemanga.com/";
 const boruto_Manga = "https://read-boruto.online/manga/";
 
 
@@ -137,7 +137,10 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
             $(".entry-content a").each((index, value) => {
               var link = $(value).attr("href");
               myLinks.push(link);
+              console.log(link,"link - link - link")
             });
+
+         
 
             console.log(myLinks, "2:14 AM");
 
@@ -156,9 +159,9 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
 
             console.log(myLinks.length, "links.length  *4:00AM* one piece");
 
-            if (myLinks.length > 6) {
-              chapter.save();
-            }
+            // if (myLinks.length > 6) {
+            //   chapter.save();
+            // }
 
             console.log(
               "chapter was not found and created a new one one piece "
