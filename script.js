@@ -51,7 +51,7 @@ app
 
 )
 
-sslServer.listen(443,()=>{
+sslServer.listen(4443,()=>{
 
   console.log('sslServer is running on 443 ***https***')
 })
@@ -134,10 +134,10 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
             /* get href */
             let myLinks = [];
 
-            $(".entry-content a").each((index, value) => {
-              var link = $(value).attr("href");
+            $(".entry-content img").each((index, value) => {
+              var link = $(value).attr("src");
               myLinks.push(link);
-              console.log(link,"link - link - link")
+        
             });
 
          

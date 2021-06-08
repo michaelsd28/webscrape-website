@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 const router = express.Router();
 
 const request = require("request");
-const urlOnePiece = "https://onepiece-mangaonline.com/";
+const urlOnePiece = "https://myonepiecemanga.com/";
 
 
 
