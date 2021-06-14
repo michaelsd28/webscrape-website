@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const fs = require("fs");
-
+const cron = require('node-cron');
 const router = express.Router();
 const request = require("request");
 
@@ -14,26 +14,16 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
+
 var numbers = 0;
 
-// connection.once("open", function () {
-//   connection.db.collection("chapters", function (err, collection) {
-//     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
 
-//         let [alldata] = data;
-//         let { imgSRC } = alldata;
-//         let myLinksDB = { links: imgSRC };
 
-//         console.log(myLinksDB); // it will print your collection data
-//       });
-//   });
-// });
+// cron.schedule('0 1 * * *', () => {
 
-// var numbers = 0;
+  cron.schedule('0 1 * * *', () => {
 
-/*return list of chapters json */
 
-router.get("/ch", (req, res) => {
   request(urlOnePiece, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -82,13 +72,66 @@ router.get("/ch", (req, res) => {
         { Orginal_NameCH: reqLinks },
       ];
 
-      res.json(listOfJson);
+
+      
+  fs.writeFile(__dirname+'/One piece chapters.json', JSON.stringify(listOfJson) , function (err) {
+    if (err) return console.log(err);
+    console.log('file was written');
+  });
+
+  console.log('file was written');
+
     }
   });
 
   numbers = numbers + 1;
 
   console.log(numbers, "mmg");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+});
+
+
+
+
+// connection.once("open", function () {
+//   connection.db.collection("chapters", function (err, collection) {
+//     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
+
+//         let [alldata] = data;
+//         let { imgSRC } = alldata;
+//         let myLinksDB = { links: imgSRC };
+
+//         console.log(myLinksDB); // it will print your collection data
+//       });
+//   });
+// });
+
+// var numbers = 0;
+
+/*return list of chapters json */
+
+router.get("/ch", (req, res) => {
+
+ res.sendFile(__dirname+"/One piece chapters.json")
+
+ console.log(numbers, "responded /One piece chapters.json");
+
 });
 
 /* webscrape images one piece  */
