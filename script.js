@@ -18,7 +18,7 @@ const borutoRoute = require("./routes/boruto");
 
 const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
 
-const OnePiceManga = "https://myonepiecemanga.com/";
+const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
 const boruto_Manga = "https://read-boruto.online/manga/";
 
 
@@ -109,7 +109,7 @@ app.get("/", (req, res) => {
 /* webscrape images one piece  */
 
 app.get("/one-piece-ch/:chapterName", (req, res) => {
-  let chapterName_1 = chapterForRequest(req.params.chapterName);
+  let chapterName_1 = req.params.chapterName;
 
   if (chapterName_1 === "one-piece-chapter-1007") {
     chapterName_1 = "one-piecechapter-1007";
@@ -128,15 +128,18 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
       res.json(myLinks);
     } else {
       if (Chapterr.length == 0) {
+        console.log(imgWebscrape,"imgWebscrape")
         request(imgWebscrape, function (error, response, html) {
           const $ = cheerio.load(html);
           if (!error && response.statusCode == 200) {
             /* get href */
             let myLinks = [];
 
-            $(".entry-content img").each((index, value) => {
-              var link = $(value).attr("src");
+            $(".entry-content a").each((index, value) => {
+              var link = $(value).attr("href");
               myLinks.push(link);
+
+    
         
             });
 
@@ -159,9 +162,9 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
 
             console.log(myLinks.length, "links.length  *4:00AM* one piece");
 
-            // if (myLinks.length > 6) {
-            //   chapter.save();
-            // }
+            if (myLinks.length > 6) {
+              chapter.save();
+            }
 
             console.log(
               "chapter was not found and created a new one one piece "
