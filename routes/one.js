@@ -5,14 +5,14 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const cron = require('node-cron');
 const router = express.Router();
-const request = require("request");
+const got = require('got');
 
 const urlOnePiece = 'https://onepiece-mangaonline.com/';
 
-const uri =
-  "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
-mongoose.connect(uri, { useNewUrlParser: true });
-const connection = mongoose.connection;
+// const uri =
+//   "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+// mongoose.connect(uri, { useNewUrlParser: true });
+// const connection = mongoose.connection;
 
 
 var numbers = 0;
@@ -21,11 +21,11 @@ var numbers = 0;
 
 // cron.schedule('0 1 * * *', () => {
 
-  cron.schedule('0 1 * * *', () => {
+  cron.schedule('0 1 * * *', async () => {
+
+    const response = await got(urlOnePiece);
 
 
-  request(urlOnePiece, function (error, response, html) {
-    if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
 
       let ul_elements = $(".ceo_latest_comics_widget");
@@ -81,8 +81,8 @@ var numbers = 0;
 
   console.log('file was written');
 
-    }
-  });
+
+
 
   numbers = numbers + 1;
 

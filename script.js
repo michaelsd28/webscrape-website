@@ -9,6 +9,7 @@ const https = require("https");
 const path = require("path");
 const router = express.Router();
 const request = require("request");
+const got = require('got');
 
 const oneRoute = require("./routes/one");
 const boku_no_heroRoute = require("./routes/boku_no_hero");
@@ -51,10 +52,10 @@ app
 
 )
 
-sslServer.listen(443,()=>{
+// sslServer.listen(443,()=>{
 
-  console.log('sslServer is running on 443 ***https***')
-})
+//   console.log('sslServer is running on 443 ***https***')
+// })
 
 let date = new Date();
 let dd = String(date.getDate());
@@ -98,9 +99,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
 
 
 
@@ -108,7 +109,7 @@ app.get("/", (req, res) => {
 
 /* webscrape images one piece  */
 
-app.get("/one-piece-ch/:chapterName", (req, res) => {
+app.get("/one-piece-ch/:chapterName", async (req, res) => {
   let chapterName_1 = req.params.chapterName;
 
   if (chapterName_1 === "one-piece-chapter-1007") {
@@ -118,34 +119,50 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
   let chapterName_new = chapterName_1 + "/";
   let imgWebscrape = OnePiceManga + chapterName_new;
 
+
+
+  console.log(imgWebscrape,"***imgWebscrape***")
+
+
+  
+
   //fetchImages(imgWebscrape);
 
   console.log(numbers, "mmg images one-piece-ch");
 
-  Chapter.find({ linkName: chapterName_1 }, function (err, Chapterr) {
+  Chapter.find({ linkName: chapterName_1 }, async function (err, Chapterr) {
     if (err) {
       console.log("not found err 404 ");
       res.json(myLinks);
     } else {
       if (Chapterr.length == 0) {
-        console.log(imgWebscrape,"imgWebscrape")
-        request(imgWebscrape, function (error, response, html) {
-          const $ = cheerio.load(html);
-          if (!error && response.statusCode == 200) {
+     
+        const html = await got(imgWebscrape);
+
+     
+
+
+  
+      
+          const $ = cheerio.load(html.body);
+
+       
             /* get href */
-            let myLinks = [];
-
-            $(".entry-content a").each((index, value) => {
-              var link = $(value).attr("href");
-              myLinks.push(link);
-
-    
+  
+            const myLinks = [];
+            $(".entry-content img"
+            ).each((index, value) => {
+              let link = $(value).attr("data-src");
         
+              myLinks.push(link);
             });
+
+
+            console.log(myLinks,"myLinks")
 
          
 
-            console.log(myLinks, "2:14 AM");
+     
 
             let links_JSON = { links: myLinks };
 
@@ -171,8 +188,8 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
             );
 
             res.json(links_JSON);
-          }
-        });
+     
+  
       } else {
         let [alldata] = Chapterr;
         let { imgSRC } = alldata;
@@ -186,6 +203,20 @@ app.get("/one-piece-ch/:chapterName", (req, res) => {
     }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
