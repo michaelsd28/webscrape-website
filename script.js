@@ -9,7 +9,7 @@ const https = require("https");
 const path = require("path");
 const router = express.Router();
 const request = require("request");
-const got = require('got');
+const got = require("got");
 
 const oneRoute = require("./routes/one");
 const boku_no_heroRoute = require("./routes/boku_no_hero");
@@ -17,11 +17,10 @@ const borutoRoute = require("./routes/boruto");
 
 /* anime manga */
 
-const boku_no_hero_Manga = "https://w3.bokunoheromanga.com/manga/";
+const boku_no_hero_Manga = "https://boku-no-hero-academia.com/manga/";
 
 const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
 const boruto_Manga = "https://read-boruto.online/manga/";
-
 
 /* anime manga */
 
@@ -35,27 +34,22 @@ app.use("/one", oneRoute);
 app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
-
-app.use('/ssl',(req,res)=>{
-
-console.log('https is working')
-
+app.use("/ssl", (req, res) => {
+  console.log("https is working");
 });
 
-const sslServer = https.createServer({
+const sslServer = https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+  },
+  app
+);
 
-key: fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-cert: fs.readFileSync(path.join(__dirname,'cert','cert.pem')),
+// sslServer.listen(443,()=>{
 
-},
-app
-
-)
-
-sslServer.listen(443,()=>{
-
-  console.log('sslServer is running on 443 ***https***')
-})
+//   console.log('sslServer is running on 443 ***https***')
+// })
 
 let date = new Date();
 let dd = String(date.getDate());
@@ -99,13 +93,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
-
-
-
-
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
 
 /* webscrape images one piece  */
 
@@ -119,13 +109,6 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
   let chapterName_new = chapterName_1 + "/";
   let imgWebscrape = OnePiceManga + chapterName_new;
 
-
-
-
-
-
-  
-
   //fetchImages(imgWebscrape);
 
   console.log(numbers, "mmg images one-piece-ch");
@@ -136,61 +119,44 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
       res.json(myLinks);
     } else {
       if (Chapterr.length == 0) {
-     
         const html = await got(imgWebscrape);
-        console.log(html,"html request")
+        console.log(html, "html request");
 
-     
+        const $ = cheerio.load(html.body);
 
+        /* get href */
 
-  
-      
-          const $ = cheerio.load(html.body);
+        const myLinks = [];
+        $(".entry-content img").each((index, value) => {
+          let link = $(value).attr("data-src");
 
-       
-            /* get href */
-  
-            const myLinks = [];
-            $(".entry-content img"
-            ).each((index, value) => {
-              let link = $(value).attr("data-src");
-        
-              myLinks.push(link);
-            });
+          myLinks.push(link);
+        });
 
+        console.log(myLinks, "myLinks");
 
-            console.log(myLinks,"myLinks")
+        let links_JSON = { links: myLinks };
 
-         
+        console.log("myLinks", "console was excecuted one piece");
 
-     
+        let { links } = myLinks;
 
-            let links_JSON = { links: myLinks };
+        const chapter = new Chapter({
+          chapterName: "one-piece",
+          imgSRC: myLinks,
+          dateAdded: `${mm}-${dd}`,
+          linkName: chapterName_1,
+        });
 
-            console.log("myLinks", "console was excecuted one piece");
+        console.log(myLinks.length, "links.length  *4:00AM* one piece");
 
-            let { links } = myLinks;
+        if (myLinks.length > 6) {
+          chapter.save();
+        }
 
-            const chapter = new Chapter({
-              chapterName: "one-piece",
-              imgSRC: myLinks,
-              dateAdded: `${mm}-${dd}`,
-              linkName: chapterName_1,
-            });
+        console.log("chapter was not found and created a new one one piece ");
 
-            console.log(myLinks.length, "links.length  *4:00AM* one piece");
-
-            if (myLinks.length > 6) {
-              chapter.save();
-            }
-
-            console.log(
-              "chapter was not found and created a new one one piece "
-            );
-
-            res.json(links_JSON);
-     
-  
+        res.json(links_JSON);
       } else {
         let [alldata] = Chapterr;
         let { imgSRC } = alldata;
@@ -204,24 +170,6 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
     }
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* webscrape images boku no hero  */
 
@@ -307,10 +255,6 @@ app.get("/boku-no-hero-ch/:chapterName", (req, res) => {
   });
 });
 
-
-
-
-
 /* webscrape images boku no hero  */
 
 app.get("/boruto-ch/:chapterName", (req, res) => {
@@ -318,8 +262,6 @@ app.get("/boruto-ch/:chapterName", (req, res) => {
 
   let chapterName_new = chapterName_1 + "/";
   let imgWebscrape = boruto_Manga + chapterName_new;
-
-
 
   //fetchImages(imgWebscrape);
 
@@ -396,8 +338,3 @@ app.get("/boruto-ch/:chapterName", (req, res) => {
     }
   });
 });
-
-
-
-
-

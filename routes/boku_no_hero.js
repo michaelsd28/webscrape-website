@@ -7,17 +7,21 @@ const fs = require("fs");
 const router = express.Router();
 const request = require("request");
 
-const boku_no_hero_URL = "https://w3.bokunoheromanga.com/";
+const boku_no_hero_URL = "https://boku-no-hero-academia.com/";
 const cron = require('node-cron');
 
 var numbers = 0;
 
-cron.schedule('0 1 * * *', () => {
+// cron.schedule('0  1 * * *', () => {
+
+// cron.schedule('* * * * * *', () => {
+
+  cron.schedule('0  1 * * *', () => {
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
 
-      let ul_elements = $(".ceo_latest_comics_widget");
+      let ul_elements = $(".su-posts");
 
       let listOfChapters = ul_elements.text();
 
@@ -41,7 +45,7 @@ cron.schedule('0 1 * * *', () => {
       /* get href */
       let links = [];
 
-      $(".ceo_latest_comics_widget a").each((index, value) => {
+      $(".su-posts a").each((index, value) => {
         var link = $(value).attr("href");
         links.push(link);
       });
@@ -50,7 +54,7 @@ cron.schedule('0 1 * * *', () => {
 
       let reqLinks = [];
       const strREQ = links.map((item) => {
-        let newItem = item.substring(37);
+        let newItem = item.substring(40);
         reqLinks.push(newItem);
       });
 
