@@ -52,10 +52,10 @@ app
 
 )
 
-// sslServer.listen(443,()=>{
+sslServer.listen(443,()=>{
 
-//   console.log('sslServer is running on 443 ***https***')
-// })
+  console.log('sslServer is running on 443 ***https***')
+})
 
 let date = new Date();
 let dd = String(date.getDate());
@@ -99,9 +99,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
 
 
 
@@ -121,7 +121,7 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
 
 
 
-  console.log(imgWebscrape,"***imgWebscrape***")
+
 
 
   
@@ -138,6 +138,7 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
       if (Chapterr.length == 0) {
      
         const html = await got(imgWebscrape);
+        console.log(html,"html request")
 
      
 
