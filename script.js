@@ -120,7 +120,8 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
     } else {
       if (Chapterr.length == 0) {
         const html = await got(imgWebscrape);
-        console.log(html, "html request");
+        console.log(imgWebscrape)
+      
 
         const $ = cheerio.load(html.body);
 
@@ -170,6 +171,7 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
     }
   });
 });
+
 
 /* webscrape images boku no hero  */
 
