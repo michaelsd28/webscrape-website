@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const fs = require("fs");
-const cron = require('node-cron');
+const cron = require('node-schedule');
 const router = express.Router();
 const got = require('got');
 
@@ -19,9 +19,9 @@ var numbers = 0;
 
 
 
-// cron.schedule('0 1 * * *', () => {
+// cron.scheduleJob('0 1 * * *', () => {
 
-  cron.schedule('0 1 * * *', async () => {
+  cron.scheduleJob('0 1 * * *', async () => {
 
     const response = await got(urlOnePiece);
 

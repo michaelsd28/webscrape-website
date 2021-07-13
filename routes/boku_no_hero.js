@@ -8,15 +8,15 @@ const router = express.Router();
 const request = require("request");
 
 const boku_no_hero_URL = "https://boku-no-hero-academia.com/";
-const cron = require('node-cron');
+const cron = require('node-schedule');
 
 var numbers = 0;
 
-// cron.schedule('0  1 * * *', () => {
+// cron.scheduleJob('0  1 * * *', () => {
 
-// cron.schedule('* * * * * *', () => {
+// cron.scheduleJob('* * * * * *', () => {
 
-  cron.schedule('0  1 * * *', () => {
+  cron.scheduleJob('0  1 * * *', () => {
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);

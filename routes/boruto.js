@@ -23,13 +23,13 @@ var numbers = 0;
 
 
 
-// cron.schedule('0 1 * * *', () => {
+// cron.scheduleJob('0 1 * * *', () => {
 
 
 
   var cron = require('node-cron');
 
-  cron.schedule('0 1 * * *', () => {
+  cron.scheduleJob('0 1 * * *', () => {
 
     request(boruto_URL, function (error, response, html) {
       if (!error && response.statusCode == 200) {
