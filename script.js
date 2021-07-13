@@ -102,9 +102,7 @@ app.listen(port, () => {
 app.get("/one-piece-ch/:chapterName", async (req, res) => {
   let chapterName_1 = req.params.chapterName;
 
-  if (chapterName_1 === "one-piece-chapter-1007") {
-    chapterName_1 = "one-piecechapter-1007";
-  }
+
 
   let chapterName_new = chapterName_1 + "/";
   let imgWebscrape = OnePiceManga + chapterName_new;
@@ -120,7 +118,7 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
     } else {
       if (Chapterr.length == 0) {
         const html = await got(imgWebscrape);
-        console.log(imgWebscrape)
+        console.log(imgWebscrape,"imgWebscrape")
       
 
         const $ = cheerio.load(html.body);
