@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cron = require('node-schedule');
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const fs = require("fs");
@@ -8,7 +8,7 @@ const router = express.Router();
 const request = require("request");
 
 const boku_no_hero_URL = "https://boku-no-hero-academia.com/";
-const cron = require('node-schedule');
+
 
 var numbers = 0;
 
@@ -16,7 +16,7 @@ var numbers = 0;
 
 // cron.scheduleJob('* * * * * *', () => {
 
-  cron.scheduleJob('0  1 * * *', () => {
+  cron.scheduleJob('0  3 * * *', () => {
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cron = require('node-schedule');
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const router = express.Router();
@@ -27,7 +27,6 @@ var numbers = 0;
 
 
 
-  var cron = require('node-cron');
 
   cron.scheduleJob('0 1 * * *', () => {
 

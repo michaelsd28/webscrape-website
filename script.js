@@ -90,7 +90,7 @@ const chapterForRequest = (chapter) => {
 var numbers = 0;
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.sendFile(__dirname+"/index.html");
 });
 
 app.listen(port, () => {
