@@ -28,7 +28,7 @@ var numbers = 0;
 
 
 
-  cron.scheduleJob('0 1 * * *', () => {
+  cron.scheduleJob('0 1 * * *',  () => {
 
     request(boruto_URL, function (error, response, html) {
       if (!error && response.statusCode == 200) {
@@ -62,7 +62,7 @@ var numbers = 0;
 
         fs.writeFile(__dirname+'/boruto chapters.json', JSON.stringify(jsonOBJ) , function (err) {
           if (err) return console.log(err);
-          console.log('file was written');
+          console.log(`Boruto file was written on ${Date()}`);
         });
   
  

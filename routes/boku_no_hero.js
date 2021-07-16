@@ -16,7 +16,7 @@ var numbers = 0;
 
 // cron.scheduleJob('* * * * * *', () => {
 
-  cron.scheduleJob('0  3 * * *', () => {
+  cron.scheduleJob('0  3 * * *',  () => {
   request(boku_no_hero_URL, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(html);
@@ -67,7 +67,7 @@ var numbers = 0;
 
       fs.writeFile(__dirname+'/boku no hero chapters.json', JSON.stringify(listOfJson) , function (err) {
         if (err) return console.log(err);
-        console.log('file was written');
+        console.log(`Boku no hero file was written on ${Date()}`);
       });
 
   
@@ -77,27 +77,14 @@ var numbers = 0;
 
 
 
-const uri =
-  "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
-mongoose.connect(uri, { useNewUrlParser: true });
-const connection = mongoose.connection;
+// const uri =
+//   "mongodb+srv://michaelsd28:mypassword28@cluster0.cneai.mongodb.net/boku_no_hero_mangaDB?authSource=admin&replicaSet=atlas-x7tzqc-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+// mongoose.connect(uri, { useNewUrlParser: true });
+// const connection = mongoose.connection;
 
 
 
-// connection.once("open", function () {
-//   connection.db.collection("chapters", function (err, collection) {
-//     collection.find({ linkName: "one-piecechapter-1007" }).toArray(function (err, data) {
 
-//         let [alldata] = data;
-//         let { imgSRC } = alldata;
-//         let myLinksDB = { links: imgSRC };
-
-//         console.log(myLinksDB); // it will print your collection data
-//       });
-//   });
-// });
-
-// var numbers = 0;
 
 /*return list of chapters json */
 

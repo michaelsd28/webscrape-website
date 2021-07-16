@@ -19,84 +19,55 @@ var numbers = 0;
 // cron.scheduleJob('0 1 * * *', async () => {
 // cron.scheduleJob('* * * * * *', () => {
 
-cron.scheduleJob("0 2 * * *", async () => {
-  const response = await got(urlOnePiece);
+  cron.scheduleJob('0 2 * * *', async () => {
+ 
+    const html = await got(urlOnePiece);
 
-  const $ = cheerio.load(html);
-
-  let ul_elements = $(".ceo_latest_comics_widget");
-
-  let listOfChapters = ul_elements.text();
-
-  let listOfChaptersArray = listOfChapters.split("\n").slice(1, 51);
-
-  const listOfChaptersJson = [];
-  const listOfChaptersOrginal = [];
-  const noSpacesMap = listOfChaptersArray.map((item) => {
-    let newItem = item
-      .trim()
-      .replace(",", " ")
-      .replace(/  /g, " ")
-      .replace(/:/g, " -")
-      .replace(/\t/g, "");
-
-    let newItemOrginal = item.replace(/\t/g, "");
-    listOfChaptersJson.push(newItem);
-    listOfChaptersOrginal.push(newItemOrginal);
-  });
-
-  /* get href */
-  let links = [];
-
-  $(".ceo_latest_comics_widget a").each((index, value) => {
-    let link = $(value).attr("href");
-    links.push(link);
-  });
-
-  // console.log(links,'href')
-
-  let reqLinks = [];
-  const strREQ = links.map((item) => {
-    let newItem = item.substring(39);
-    reqLinks.push(newItem);
-  });
-
-  reqLinks = reqLinks.splice(0, 50);
-
-  const listOfJson = [
-    { episodes: listOfChaptersJson },
-    { Orginal_NameCH: reqLinks },
-  ];
-
-  fs.writeFile(
-    __dirname + "/One piece chapters.json",
-    JSON.stringify(listOfJson),
-    function (err) {
+    const $ = cheerio.load(html.body);
+  
+    let titleName = [];
+    $("#ceo_latest_comics_widget-3 > ul > li:nth-child(n) > a").each((index, value) => {
+      let link = $(value).text();
+      titleName.push(link);
+    });
+  
+  
+    let linkFile = [];
+    $("#ceo_latest_comics_widget-3 > ul > li:nth-child(n) > a").each((index, value) => {
+      let link = $(value).attr("href");
+      linkFile.push(link.substring(39));
+    });
+    
+    
+    titleName =  titleName.splice(0,50)
+    linkFile = linkFile.splice(0,50)
+  
+  
+    const jsonOBJ = [{ episodes: titleName }, { Orginal_NameCH: linkFile }];
+    fs.writeFile(__dirname+'/One piece chapters.json', JSON.stringify(jsonOBJ) , function (err) {
       if (err) return console.log(err);
-      console.log("file was written");
-    }
-  );
-
-  console.log("file was written");
-
-  numbers = numbers + 1;
-
-  console.log(numbers, "mmg");
+      console.log(`One piece file was written on ${Date()}`);
+    });
+  
+    console.log(`One piece file was written on ${Date()}`);
+  
 });
 
-function sayHola() {
-  console.log("object");
-}
 
 
 // var numbers = 0;
 
 /*return list of chapters json */
 
-router.get("/ch", (req, res) => {
-  res.sendFile(__dirname + "/One piece chapters.json");
+router.get("/ch", async(req, res) => {
 
-  console.log(numbers, "responded /One piece chapters.json");
+
+
+res.sendFile(__dirname+"/One piece chapters.json")
+
+console.log(`One piece sent file  */One piece chapters.json`);
+
+
 });
 
 /* webscrape images one piece  */
