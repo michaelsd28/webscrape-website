@@ -46,10 +46,10 @@ const sslServer = https.createServer(
   app
 );
 
-// sslServer.listen(443,()=>{
+sslServer.listen(443,()=>{
 
-//   console.log('sslServer is running on 443 ***https***')
-// })
+  console.log('sslServer is running on 443 ***https***')
+})
 
 let date = new Date();
 let dd = String(date.getDate());
@@ -101,9 +101,9 @@ app.get("/", (req, res) => {
 
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
 
 /* webscrape images one piece  */
 
