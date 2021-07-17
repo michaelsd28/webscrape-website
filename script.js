@@ -19,7 +19,7 @@ const borutoRoute = require("./routes/boruto");
 
 const boku_no_hero_Manga = "https://boku-no-hero-academia.com/manga/";
 
-const OnePiceManga = "https://onepiece-mangaonline.com/manga/";
+const OnePiceManga = "https://onepiecechapters.com/manga/";
 const boruto_Manga = "https://read-boruto.online/manga/";
 
 /* anime manga */
@@ -107,46 +107,48 @@ app.get("/", (req, res) => {
 
 /* webscrape images one piece  */
 
+
 app.get("/one-piece-ch/:chapterName", async (req, res) => {
-  let chapterName_1 = req.params.chapterName;
 
 
 
-  let chapterName_new = chapterName_1 + "/";
-  let imgWebscrape = OnePiceManga + chapterName_new;
+  let imgWebscrape = OnePiceManga + req.params.chapterName;
 
-  //fetchImages(imgWebscrape);
+
 
   console.log(numbers, "mmg images one-piece-ch");
 
-  Chapter.find({ linkName: chapterName_1 }, async function (err, Chapterr) {
+  Chapter.find({ linkName: req.params.chapterName }, async function (err, Chapterr) {
     if (err) {
       console.log("not found err 404 ");
       res.json(myLinks);
     } else {
       if (Chapterr.length == 0) {
         const html = await got(imgWebscrape);
-        console.log(imgWebscrape,"imgWebscrape")
+     
       
 
         const $ = cheerio.load(html.body);
 
+
+
+
+
+
         /* get href */
 
-        const myLinks = [];
-        $(".entry-content img").each((index, value) => {
-          let link = $(value).attr("data-src");
+        let myLinks = [];
+    $("body .img_container img").each((index, value) => {
+      let link = $(value).attr("src");
+      myLinks.push(link);
+    });
 
-          myLinks.push(link);
-        });
 
-        console.log(myLinks, "myLinks");
+    let linkOBJ = {links:myLinks}
 
-        let links_JSON = { links: myLinks };
+      
+console.log(linkOBJ,"linkFile")
 
-        console.log("myLinks", "console was excecuted one piece");
-
-        let { links } = myLinks;
 
         const chapter = new Chapter({
           chapterName: "one-piece",
@@ -163,7 +165,8 @@ app.get("/one-piece-ch/:chapterName", async (req, res) => {
 
         console.log("chapter was not found and created a new one one piece ");
 
-        res.json(links_JSON);
+        res.json(linkOBJ);
+
       } else {
         let [alldata] = Chapterr;
         let { imgSRC } = alldata;
