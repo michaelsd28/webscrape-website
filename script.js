@@ -110,15 +110,15 @@ app.get("/", (req, res) => {
 
 app.get("/one-piece-ch/:chapterName", async (req, res) => {
 
+const chapterName_1 = req.params.chapterName;
 
-
-  let imgWebscrape = OnePiceManga + req.params.chapterName;
+  const imgWebscrape = OnePiceManga + chapterName_1;
 
 
 
   console.log(numbers, "mmg images one-piece-ch");
 
-  Chapter.find({ linkName: req.params.chapterName }, async function (err, Chapterr) {
+  Chapter.find({ linkName: chapterName_1 }, async function (err, Chapterr) {
     if (err) {
       console.log("not found err 404 ");
       res.json(myLinks);
