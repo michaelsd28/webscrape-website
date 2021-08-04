@@ -3,12 +3,10 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
-const fs = require("fs");
-const https = require("https");
 const path = require("path");
 const request = require("request");
 const got = require("got");
-
+let port = process.env.PORT || 3000;
 const oneRoute = require("./routes/one");
 const boku_no_heroRoute = require("./routes/boku_no_hero");
 const borutoRoute = require("./routes/boruto");
@@ -32,20 +30,14 @@ app.use("/one", oneRoute);
 app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
-
-
-const sslServer = https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
-    cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
-  },
-  app
-);
-
-sslServer.listen(443,()=>{
-
-  console.log('sslServer is running on 443 ***https***')
+app.listen(port,()=>{
+  console.log(`server running on http://localhost:${port}`)
 })
+
+
+
+
+
 
 let date = new Date();
 let dd = String(date.getDate());
