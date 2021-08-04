@@ -1,13 +1,11 @@
 const express = require("express");
 const app = express();
-const port = 3001;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const https = require("https");
 const path = require("path");
-const router = express.Router();
 const request = require("request");
 const got = require("got");
 
@@ -34,9 +32,7 @@ app.use("/one", oneRoute);
 app.use("/boku-no-hero", boku_no_heroRoute);
 app.use("/boruto", borutoRoute);
 
-app.use("/ssl", (req, res) => {
-  console.log("https is working");
-});
+
 
 const sslServer = https.createServer(
   {
