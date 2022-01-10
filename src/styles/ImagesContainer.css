@@ -1,0 +1,278 @@
+.App-naruto-anim {
+  position: absolute;
+
+  width: 50vw;
+  height: 50vh;
+
+  left: 25vw;
+  right: 20vw;
+
+  top: 500px;
+}
+
+#header-container img {
+  margin-top: 20px;
+  margin-right: 10px;
+  bottom: 5px;
+}
+
+i {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#all-images {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(6, minmax(1fr auto));
+  grid-template-rows: repeat(12, minmax(100px auto));
+  margin: 0 auto;
+  text-align: center;
+
+  grid-template-areas:
+    ". . optDropDown optDropDown . ."
+    ". buttons buttons buttons buttons ."
+    ". three three three three ."
+    ". four four four four ."
+    ". five five five five ."
+    ". six six six six .";
+}
+
+#all-images img {
+
+
+  width: 100%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+
+}
+
+#all-images div {
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+}
+
+#all-images .one {
+
+
+  position: relative;
+  padding: 120px 0 60px 0;
+  grid-area: optDropDown;
+  justify-content: left;
+  display: flex;
+}
+
+/* #all-images .dropdown-toggle {
+align DROPDOWN
+} */
+
+#all-images .two {
+  grid-area: buttons;
+  background: rgb(0, 0, 10);
+  background: linear-gradient(
+    90deg,
+    rgb(0, 0, 36) 0%,
+    rgba(3, 3, 10, 1) 46%,
+    rgb(0, 0, 29) 100%
+  );
+  justify-content: center;
+  width: 50vw;
+  border-radius: 20px;
+}
+
+#all-images .two .nested {
+  grid-gap: 10px;
+  margin: 0 auto;
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#all-images .two .nested .text {
+  display: flex;
+  justify-content: center;
+}
+
+#all-images .two .nested .prev {
+  display: grid;
+  justify-content: end;
+}
+#all-images .two .nested .next {
+  display: flex;
+  justify-content: left;
+}
+
+#all-images .three {
+  grid-area: three;
+  display: grid;
+  justify-content: center;
+}
+
+#all-images .four {
+  grid-area: four;
+  background-color: rgb(36, 36, 36);
+  justify-content: center;
+  justify-self: center;
+  align-self: center;
+  align-items: center;
+  width: 80vw;
+
+  width: 50vw;
+}
+
+#all-images .four .nested {
+  grid-gap: 10px;
+  margin: 0 auto;
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#all-images .four .nested .text {
+  display: flex;
+  justify-content: center;
+}
+
+#all-images .four .nested .prev {
+  display: grid;
+  justify-content: end;
+}
+#all-images .four .nested .next {
+  display: flex;
+  justify-content: left;
+}
+
+#all-images .five {
+  grid-area: five;
+}
+
+#all-images .six {
+  grid-area: six;
+}
+
+#all-images .prev-button {
+  padding: 1px;
+}
+
+
+#link-go-home a {
+  text-decoration: none;
+  color: #0074d9;
+}
+
+#link-go-home .underline {
+  position: relative;
+}
+
+#link-go-home .underline::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: #0074d9;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #link-go-home .underline:hover::before {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+}
+
+.sketchy {
+  display: inline-block;
+  border: 3px solid #333333;
+  border-radius: 2% 6% 5% 4%/1% 1% 2% 4%;
+  text-transform: uppercase;
+  position: relative;
+  background: #ffffff;
+}
+.sketchy::before {
+  content: "";
+  border: 2px solid #353535;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
+  border-radius: 1% 1% 2% 4%/2% 6% 5% 4%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* drop down*/
+
+
+ .box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+}
+
+.box select {
+  background-color: #064061;
+  color: rgb(214, 214, 214);
+  padding: 15px;
+ 
+  border: none;
+  font-size: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  width: 350px;
+
+
+}
+
+.box::before {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150%;
+  height: 150%;
+  text-align: center;
+  font-size: 20px;
+  line-height: 165px;
+  padding: 40px;
+
+ 
+
+}
+
+
+.box select option {
+  padding: 80px;
+  
+}
+
+

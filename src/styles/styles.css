@@ -1,0 +1,549 @@
+.header-container {
+  color: rgb(218, 218, 218);
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: #fff;
+
+  overflow-x: hidden;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(15, 15, 15) 46%,
+    rgb(0, 0, 0) 100%
+  );
+}
+
+/* #all-manga-list{
+
+
+  display: flex;
+
+  justify-content: center;
+}
+ */
+
+
+#list-chapters h1{
+
+  text-align: center;
+}
+
+
+.listOfChapters-css ul {
+  text-decoration: none;
+
+}
+
+ .header {
+  height: 50vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url("../images/manga.jpg");
+
+  background-size: cover;
+  background-position: top;
+  position: relative;
+
+
+
+  clip-path: polygon(0 0, 100% 0, 100% 25vh, 0 100%);
+}
+
+#header .brand-box {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+#header .brand {
+  font-size: 20px;
+}
+
+#header .text-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+
+  backface-visibility: hidden;
+  margin-bottom: 30px;
+}
+
+.heading-primary-main {
+
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 5px;
+}
+
+.heading-primary-sub {
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 7.4px;
+}
+
+/*all chapters css*/
+
+#one-piece-list .listOfChapters-css ul {
+  margin-left: 42vw;
+  margin-right: 32vw;
+}
+
+#one-piece-list .listOfChapters-css h1 {
+  color: rgb(42, 113, 179);
+  padding-bottom: 40px;
+}
+
+
+
+  
+
+
+/* one piece List rgb(255, 56, 56)*/
+#one-piece-list .listOfChapters-css ul {
+  list-style-type: none;
+  counter-reset: index;
+  padding: 0;
+  max-width: 300px;
+  text-decoration: none;
+
+}
+
+/* List element */
+#one-piece-list .listOfChapters-css li {
+  counter-increment: index;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+
+}
+
+/* Element counter */
+#one-piece-list .listOfChapters-css li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+
+  font-weight: bold;
+  min-width: 68px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(to bottom, rgb(255, 142, 142), rgb(192, 104, 104));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+}
+
+#one-piece-list .listOfChapters-css li {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.3rem;
+
+  font-weight: bold;
+  min-width: 380px;
+  min-height: 110px;
+  max-height: 200px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(
+    to bottom,
+    rgb(255, 66, 66),
+    rgb(139, 14, 14)
+  );
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  overflow: visible;
+}
+
+/* Element separation */
+#one-piece-list .listOfChapters-css li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+
+  width: 10px;
+}
+
+#one-piece-list .listOfChapters-css {
+display: grid;
+justify-content: center;
+}
+
+
+#boku-no-hero-list .listOfChapters-css {
+  display: grid;
+  justify-content: center;
+  }
+  #boruto-list .listOfChapters-css {
+    display: grid;
+    justify-content: center;
+    }
+    
+  
+
+#one-piece-list img{
+
+height: 10vh;
+
+pointer-events: none;
+
+
+margin-bottom: 30px;
+
+margin-left: auto;
+margin-right: auto;
+display: block;
+
+
+
+}
+
+#one-piece-list .h1-one-piece{
+
+  
+
+  font-size: 4vh;
+  background: -webkit-linear-gradient(rgb(255, 0, 0), rgb(75, 1, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#one-piece-list .listOfChapters-css i {
+  padding-left: 10px;
+}
+
+ .mario-anim {
+  position: absolute;
+
+left: 0;
+
+top: 10vh;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+
+
+
+
+.please-Refresh {
+  position: relative;
+  text-align: center;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.please-Refresh svg {
+  position: relative;
+
+  bottom: 800px;
+}
+
+
+
+
+
+
+ a{
+  text-decoration: none;
+color: rgb(255, 56, 56);
+}
+
+ a:hover{
+  text-decoration: none;
+color: rgb(255, 14, 14);
+}
+
+
+
+
+/*boku no hero list rgb(15, 94, 26)*/
+
+#boku-no-hero-list  .listOfChapters-css ul {
+  counter-reset: index;
+  padding: 0;
+  max-width: 300px;
+  text-decoration: none;
+
+}
+
+
+#boku-no-hero-list img{
+  height: 10vh;
+  pointer-events: none;
+
+  margin-bottom: 30px;
+  
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+
+
+/* List element */
+#boku-no-hero-list  .listOfChapters-css li {
+  counter-increment: index;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+ 
+}
+
+/* Element counter */
+#boku-no-hero-list  .listOfChapters-css li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+
+  font-weight: bold;
+  min-width: 68px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(to bottom, aquamarine, rgb(189, 255, 162));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+}
+
+#boku-no-hero-list .listOfChapters-css li {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.3rem;
+
+  font-weight: bold;
+  min-width: 380px;
+  min-height: 111px;
+  max-height: 200px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(
+    to bottom,
+    rgb(66, 255, 123),
+    rgb(15, 94, 26)
+  );
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  overflow: visible;
+}
+
+/* Element separation */
+#boku-no-hero-list .listOfChapters-css li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+
+  width: 10px;
+}
+
+#boku-no-hero-list .listOfChapters-css {
+display: grid;
+justify-content: center;
+}
+
+#boku-no-hero-list .listOfChapters-css i {
+  padding-left: 10px;
+}
+
+#boku-no-hero-list .listOfChapters-css h1 {
+  color: rgb(30, 73, 37);
+  padding-bottom: 40px;
+}
+
+
+
+/*boruto list rgb(212, 176, 13)*/
+
+#boruto-list  .listOfChapters-css ul {
+  counter-reset: index;
+  padding: 0;
+  max-width: 300px;
+  text-decoration: none;
+
+}
+
+
+#boruto-list img{
+  height: 10vh;
+  pointer-events: none;
+
+  margin-bottom: 30px;
+  
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+
+
+/* List element */
+#boruto-list  .listOfChapters-css li {
+  counter-increment: index;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+ 
+}
+
+/* Element counter */
+#boruto-list  .listOfChapters-css li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+
+  font-weight: bold;
+  min-width: 68px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(to bottom, aquamarine, rgb(189, 255, 162));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+}
+
+#boruto-list .listOfChapters-css li {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.3rem;
+
+  font-weight: bold;
+  min-width: 380px;
+  min-height: 105px;
+  max-height: 200px;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+
+  background-image: linear-gradient(
+    to bottom,
+    rgb(78, 51, 1),
+    rgb(255, 186, 58)
+  );
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+  overflow: visible;
+}
+
+/* Element separation */
+#boruto-list .listOfChapters-css li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+
+  width: 10px;
+}
+
+
+#boruto-list .listOfChapters-css i {
+  padding-left: 10px;
+}
+
+#boruto-list .listOfChapters-css h1 {
+  color: rgb(143, 95, 7);
+  padding-bottom: 40px;
+}
+
+#boruto-list{
+
+
+padding: 20px;
+
+  position: relative;
+
+  top: 4px;
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1000px) {
+  #all-manga-list{
+
+    margin-left:  100px;
+    margin-right: 100px;
+   
+  
+     display: grid;
+   
+     grid-template-columns: repeat(8, minmax(1fr auto));
+     grid-template-rows: repeat(6, minmax(100px auto));
+   
+     grid-gap: 20px;
+   
+   
+     grid-template-areas:
+       "one one one one one one one one one"
+       "one one one one one one one one one"
+       "two two two two two two two two"
+       "two two two two two two two two"
+       "three three three three three three three three"
+       "three three three three three three three three"
+       ;
+   
+   }
+   
+}
+
+
+
+
+.all-manga-list{
+
+  display: flex;
+
+
+  justify-content: center;
+
+
+}
+
+.all-manga-list div{
+
+
+  padding: 20px;
+}
+
+#all-manga-list{
+
+  padding-top: 20px;
+}
