@@ -9,14 +9,12 @@ function DropDownCh({ className }) {
     epListOrginal,
     setTitle,
     title,
-    setLoading,
-   
+    setIsBase64,
+    setLoading
   } = useContext(DataContext);
 
   return (
-  
     <div className={className}>
-
       <div id="Dropdown-id" className="box">
         <select
           name={title}
@@ -25,19 +23,16 @@ function DropDownCh({ className }) {
             let value = e.target.value;
             setTitle(value);
 
-            episodesList.map((item,index)=>{
-                if (item===value){
-                  setCurrentCH(epListOrginal[index]);
+            episodesList.map((item, index) => {
+              if (item === value) {
+                setCurrentCH(epListOrginal[index]);
 
-                  console.log(epListOrginal[index])
-                }
-           
-            })
-   
-
+                console.log(epListOrginal[index]);
+              }
+            });
 
             setLoading(false);
-            console.log(title)
+            console.log(title);
           }}
         >
           {episodesList.map((item, index) => {
@@ -45,8 +40,25 @@ function DropDownCh({ className }) {
           })}
         </select>
       </div>
-    </div>
+      <button
+        className="btn btn-success"
+        style={{
+          margin: "70px 0 0 -60px",
+          position: "absolute",
+          minWidth: "150px"
+        }}
+        onClick={() => {
 
+          setIsBase64(prevCheck => !prevCheck);
+          setLoading(false);
+
+
+
+        }}
+      >
+        Base 64
+      </button>
+    </div>
   );
 }
 

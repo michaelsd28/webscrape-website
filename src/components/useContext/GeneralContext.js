@@ -20,6 +20,7 @@ export const DataProvider = ({ children }) => {
   const [currentCH, setCurrentCH] = useState();
   const [imageList, setImageList] = useState([]);
   const [linkCH, setLinkCH] = useState(urlChapters);
+  const [isBase64, setIsBase64] = useState(false);
 
   useEffect(() => {
     setDidMount(true);
@@ -28,7 +29,7 @@ export const DataProvider = ({ children }) => {
       if (typeof currentCH !== "undefined") {
 
         console.log(linkCH+currentCH,"link for images")
-        const responseIMG = await fetch(`${linkCH}${currentCH}`);
+        const responseIMG = await fetch(`http://localhost:8080/manga/links/${currentCH}/isBase64&&=${isBase64}`);
 
      
         const jsonIMG = await responseIMG.json();
@@ -40,13 +41,13 @@ export const DataProvider = ({ children }) => {
         window.scrollTo(0, 0);
       }
 
-      console.log(linkCH, "<-Link Context One piece");
+      console.log(currentCH, "<-Link Context One piece");
     }
 
     fetchTorrent();
 
     return () => setDidMount(false);
-  }, [title, currentCH]);
+  }, [title, currentCH, isBase64]);
 
   if (!didMount) {
     return null;
@@ -78,7 +79,10 @@ export const DataProvider = ({ children }) => {
 
 
         loadingM, 
-        setLoadingM
+        setLoadingM,
+
+        isBase64,
+        setIsBase64
       }}
     >
       {children}

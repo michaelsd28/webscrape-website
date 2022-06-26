@@ -1,15 +1,46 @@
 import React,{useContext} from 'react'
 import { DataContext } from "../useContext/GeneralContext";
+import b64toBlob from 'b64-to-blob';
 
 export default  function SlideShow() {
 
-    const {imageList}= useContext (DataContext)
+    const {imageList,isBase64}= useContext (DataContext)
 
 if(imageList.length>5){
   return (
     <div className="three">
 
-   {  imageList.map((item,index) => {
+
+{isBase64 &&  imageList.map((item,index) => {
+
+  /// without data
+  const newItem = item.replace("data:image/png;base64,", "");
+
+
+  const blob = b64toBlob(newItem, 'image/png');
+  const blobUrl = URL.createObjectURL(blob);
+
+
+
+console.log(isBase64,"isBase64 6969")
+
+            return (
+              <div key={index}>
+                <img key={index} src={blobUrl} alt={index} />
+              </div>
+            );
+          })
+          
+          
+          }
+
+ 
+
+   {!isBase64&&  imageList.map((item,index) => {
+
+
+console.log(isBase64,"isBase64 6969")
+
             return (
               <div key={index}>
                 <img key={index} src={item} alt={index} />

@@ -123,9 +123,15 @@ const [myTitle,setMyTitle] = useState(title)
     </div>
     <div className="three">
       {imageList.map((item) => {
+
+      
         return (
           <div>
+
+            <h1>mmg</h1>
+
             <img src={item} />
+            
           </div>
         );
       })}
