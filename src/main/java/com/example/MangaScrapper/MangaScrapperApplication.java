@@ -15,7 +15,6 @@ public class MangaScrapperApplication {
 
         try {
 
-
             //specify the protocol along with the URL
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("http://localhost:8080/");
